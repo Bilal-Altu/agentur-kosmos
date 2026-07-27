@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { motion, useTransform, useSpring, useMotionValue, useMotionTemplate } from "framer-motion";
+import { Sonne, Erde, Mond } from "@/components/himmelskoerper";
 
 // --- Types ---
 export type AnimationPhase = "scatter" | "line" | "circle" | "bottom-strip";
@@ -395,6 +396,16 @@ export default function IntroAnimation() {
                         }}
                     />
                 ))}
+                {/* Himmelskörper hinter den Karten — je weiter entfernt, desto weniger Parallax */}
+                <div className="absolute inset-0" style={{ transform: `translateX(${parallaxValue * -0.05}px)` }}>
+                    <Sonne className="-left-24 top-[58%] md:-left-28" />
+                </div>
+                <div className="absolute inset-0" style={{ transform: `translateX(${parallaxValue * -0.12}px)` }}>
+                    <Erde className="left-[6%] top-[13%] md:left-[9%] md:top-[15%]" />
+                </div>
+                <div className="absolute inset-0" style={{ transform: `translateX(${parallaxValue * -0.2}px)` }}>
+                    <Mond className="right-[8%] top-[16%] md:right-[12%] md:top-[20%]" />
+                </div>
                 {/* Sternschnuppen */}
                 <span className="animate-shooting-star absolute left-[12%] top-[15%] h-px w-24 bg-gradient-to-r from-transparent via-white/80 to-transparent" />
                 <span className="animate-shooting-star absolute left-[55%] top-[8%] h-px w-20 bg-gradient-to-r from-transparent via-white/60 to-transparent [animation-delay:9s]" />
