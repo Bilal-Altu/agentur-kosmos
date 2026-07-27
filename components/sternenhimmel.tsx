@@ -5,7 +5,7 @@ import React, { useMemo } from "react";
 // Sternenfeld + Nebel als Seitenhintergrund.
 // Positionen kommen aus einem festen Seed, damit Server- und Client-Render identisch sind.
 export default function Sternenhimmel({
-    count = 240,
+    count = 130,
     seed = 7,
 }: {
     count?: number;

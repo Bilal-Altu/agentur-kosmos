@@ -19,10 +19,12 @@ function Reveal({
     className?: string;
 }) {
     return (
+        // Bewusst ohne Blur-Filter: der müsste beim Einblenden den gesamten
+        // Kachelinhalt (inkl. Live-Vorschau) Frame für Frame neu weichzeichnen.
         <motion.div
             className={className}
-            initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7, delay }}
         >
@@ -208,7 +210,7 @@ export default function Sections() {
                                 href={p.href}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="group block overflow-hidden rounded-2xl bg-neutral-900/70 ring-1 ring-white/10 backdrop-blur-sm transition hover:ring-accent/60"
+                                className="group block overflow-hidden rounded-2xl bg-neutral-900/85 ring-1 ring-white/10 transition hover:ring-accent/60"
                             >
                                 <LivePreview href={p.href!} fallback={p.src} name={p.domain!} />
                                 <div className="p-6">
@@ -249,7 +251,7 @@ export default function Sections() {
                 <div className="space-y-6">
                     {SERVICES.map((s, i) => (
                         <Reveal key={s.nr} delay={i * 0.1}>
-                            <div className="grid gap-6 rounded-2xl bg-neutral-900/55 p-8 ring-1 ring-white/10 backdrop-blur-sm md:grid-cols-[auto_1fr_1fr] md:gap-10 md:p-10">
+                            <div className="grid gap-6 rounded-2xl bg-neutral-900/70 p-8 ring-1 ring-white/10 md:grid-cols-[auto_1fr_1fr] md:gap-10 md:p-10">
                                 <p className="text-4xl font-semibold text-white/15 md:text-5xl">{s.nr}</p>
                                 <div>
                                     <h3 className="text-2xl font-semibold text-neutral-50">{s.name}</h3>

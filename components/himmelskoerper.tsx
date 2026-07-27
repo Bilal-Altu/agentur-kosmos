@@ -132,8 +132,9 @@ export function Erde({ className = "" }: { className?: string }) {
                         {/* Polkappen */}
                         <ellipse cx="50" cy="4" rx="34" ry="10" fill="rgba(255,255,255,0.85)" filter={`url(#${soften})`} />
                         <ellipse cx="50" cy="97" rx="30" ry="9" fill="rgba(255,255,255,0.8)" filter={`url(#${soften})`} />
-                        {/* Wolken, etwas schneller als die Landmassen */}
-                        <g className="animate-globe-drift-fast" filter={`url(#${soften})`} opacity="0.65">
+                        {/* Wolken, etwas schneller als die Landmassen.
+                            Kein Blur-Filter: der müsste bei jedem Frame neu berechnet werden. */}
+                        <g className="animate-globe-drift-fast" opacity="0.5">
                             <use href={`#${clouds}`} />
                             <use href={`#${clouds}`} x="100" />
                         </g>

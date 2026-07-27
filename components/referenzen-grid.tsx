@@ -8,8 +8,8 @@ import { PROJECTS } from "@/components/projects-data";
 function Card({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
     return (
         <motion.div
-            initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7, delay }}
         >
@@ -64,7 +64,7 @@ export default function ReferenzenGrid() {
                 );
 
                 const cardClass =
-                    "group block overflow-hidden rounded-2xl bg-neutral-900/70 ring-1 ring-white/10 backdrop-blur-sm transition hover:ring-accent/60";
+                    "group block overflow-hidden rounded-2xl bg-neutral-900/85 ring-1 ring-white/10 transition hover:ring-accent/60";
 
                 return (
                     <Card key={p.name + i} delay={(i % 2) * 0.15}>
