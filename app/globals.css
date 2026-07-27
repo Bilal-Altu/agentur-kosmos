@@ -64,3 +64,15 @@ body {
 .animate-sun-glow {
   animation: sun-glow 6s ease-in-out infinite;
 }
+
+/* Erdrotation: Kachel wandert um exakt eine Kachelbreite = nahtloser Umlauf */
+@keyframes globe-drift {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100px); }
+}
+.animate-globe-drift {
+  animation: globe-drift 48s linear infinite;
+}
+.animate-globe-drift-fast {
+  animation: globe-drift 34s linear infinite;
+}
