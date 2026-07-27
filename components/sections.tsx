@@ -4,6 +4,8 @@ import React, { useState, useRef } from "react";
 import Link from "next/link";
 import { motion, useSpring, useScroll } from "framer-motion";
 import LivePreview from "@/components/live-preview";
+import Sternenhimmel from "@/components/sternenhimmel";
+import { Sonne, Erde, Mond } from "@/components/himmelskoerper";
 import { FEATURED_PROJECTS } from "@/components/projects-data";
 
 // --- Scroll-Reveal: Elemente fliegen beim Reinscrollen aus einem Blur ein ---
@@ -176,24 +178,8 @@ export default function Sections() {
     const lineProgress = useSpring(scrollYProgress, { stiffness: 60, damping: 20 });
 
     return (
-        <div className="relative bg-[#0a0a0a]">
-            {/* --- Hintergrund: Raster + Korn (die Cursor-Lampe bleibt dem Hero vorbehalten) --- */}
-            <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-                <div
-                    className="absolute inset-0"
-                    style={{
-                        backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)",
-                        backgroundSize: "26px 26px",
-                    }}
-                />
-                <div
-                    className="absolute inset-0 opacity-[0.05]"
-                    style={{
-                        backgroundImage:
-                            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-                    }}
-                />
-            </div>
+        <div className="relative overflow-x-clip bg-[#050508]">
+            <Sternenhimmel />
 
             {/* --- 2 · Zahlen-Leiste --- */}
             <div className="relative border-y border-white/10">
@@ -213,6 +199,7 @@ export default function Sections() {
 
             {/* --- 3 · Projekte --- */}
             <Section id="projekte" kicker="Ausgewählte Projekte" title="Echte Betriebe. Echte Ergebnisse.">
+                <Erde className="right-2 top-8 md:right-12 md:top-16" />
                 {/* Mobil: horizontales Wisch-Karussell · Desktop: 2×2-Raster */}
                 <div className="-mx-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0">
                     {FEATURED_PROJECTS.map((p, i) => (
@@ -221,7 +208,7 @@ export default function Sections() {
                                 href={p.href}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="group block overflow-hidden rounded-2xl bg-neutral-900 ring-1 ring-white/10 transition hover:ring-accent/60"
+                                className="group block overflow-hidden rounded-2xl bg-neutral-900/70 ring-1 ring-white/10 backdrop-blur-sm transition hover:ring-accent/60"
                             >
                                 <LivePreview href={p.href!} fallback={p.src} name={p.domain!} />
                                 <div className="p-6">
@@ -262,7 +249,7 @@ export default function Sections() {
                 <div className="space-y-6">
                     {SERVICES.map((s, i) => (
                         <Reveal key={s.nr} delay={i * 0.1}>
-                            <div className="grid gap-6 rounded-2xl bg-neutral-900 p-8 ring-1 ring-white/10 md:grid-cols-[auto_1fr_1fr] md:gap-10 md:p-10">
+                            <div className="grid gap-6 rounded-2xl bg-neutral-900/55 p-8 ring-1 ring-white/10 backdrop-blur-sm md:grid-cols-[auto_1fr_1fr] md:gap-10 md:p-10">
                                 <p className="text-4xl font-semibold text-white/15 md:text-5xl">{s.nr}</p>
                                 <div>
                                     <h3 className="text-2xl font-semibold text-neutral-50">{s.name}</h3>
@@ -390,6 +377,7 @@ export default function Sections() {
 
             {/* --- 7 · FAQ --- */}
             <Section id="faq" kicker="Häufige Fragen" title="Was Kunden uns vor dem Start fragen.">
+                <Mond className="right-4 top-28 md:right-16 md:top-36" />
                 <Reveal>
                     <div className="max-w-3xl border-t border-white/10">
                         {FAQS.map((f) => (
@@ -401,6 +389,8 @@ export default function Sections() {
 
             {/* --- 8 · Kontakt --- */}
             <section id="kontakt" className="relative border-t border-white/10">
+                {/* Sonnenaufgang zum Abschluss */}
+                <Sonne className="-left-16 bottom-16 md:-left-20 md:bottom-20" />
                 <div className="mx-auto max-w-6xl px-6 py-24 text-center md:px-10 md:py-36">
                     <Reveal>
                         <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.25em] text-accent">Kontakt</p>

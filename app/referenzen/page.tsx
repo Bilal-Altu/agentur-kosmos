@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ReferenzenGrid from "@/components/referenzen-grid";
+import Sternenhimmel from "@/components/sternenhimmel";
+import { Mond } from "@/components/himmelskoerper";
 
 export const metadata: Metadata = {
   title: "Referenzen — STUDIO",
@@ -10,16 +12,8 @@ export const metadata: Metadata = {
 
 export default function ReferenzenPage() {
   return (
-    <main className="relative min-h-svh bg-[#0a0a0a]">
-      {/* Dezenter Hintergrund wie auf der Startseite */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)",
-          backgroundSize: "26px 26px",
-        }}
-      />
+    <main className="relative min-h-svh overflow-x-clip bg-[#050508]">
+      <Sternenhimmel />
 
       <header className="relative z-10 flex items-center justify-between px-6 py-5 md:px-10">
         <Link href="/" className="text-sm font-bold tracking-[0.35em] text-neutral-100">
@@ -34,6 +28,7 @@ export default function ReferenzenPage() {
       </header>
 
       <div className="relative z-10 mx-auto max-w-6xl px-6 py-12 md:px-10 md:py-20">
+        <Mond className="right-4 top-6 md:right-10 md:top-10" />
         <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.25em] text-accent">Referenzen</p>
         <h1 className="mb-4 max-w-2xl text-3xl font-semibold tracking-tight text-neutral-50 md:text-5xl">
           Alle Projekte im Überblick.
