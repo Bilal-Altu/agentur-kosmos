@@ -1,4 +1,4 @@
-:HL["/agentur-kosmos/_next/static/chunks/1f2z5k08gm_rw.css","style"]
+:HL["/agentur-kosmos/_next/static/chunks/0roe6zvp2_rbk.css","style"]
 :HL["/agentur-kosmos/_next/static/media/797e433ab948586e-s.p.0r6juujl39pe6.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/agentur-kosmos/_next/static/media/caa3a2e1cccd8315-s.p.0wgildi0cnwt9.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"referenzen","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"ILybJfQZvIKoy3lIIYw6K"}
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"referenzen","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"PBkP8MOwNMUf8fWcpCsXe"}

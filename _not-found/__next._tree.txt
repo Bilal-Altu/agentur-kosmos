@@ -1,2 +1,2 @@
-:HL["/agentur-kosmos/_next/static/chunks/1f2z5k08gm_rw.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"ILybJfQZvIKoy3lIIYw6K"}
+:HL["/agentur-kosmos/_next/static/chunks/0roe6zvp2_rbk.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"PBkP8MOwNMUf8fWcpCsXe"}
