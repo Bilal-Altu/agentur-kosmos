@@ -307,6 +307,30 @@ export default function IntroAnimation() {
         }));
     }, []);
 
+    // --- Sternenfeld (fester Seed, damit Server- und Client-Render identisch sind) ---
+    const stars = useMemo(() => {
+        let seed = 42;
+        const rnd = () => {
+            seed = (seed * 16807) % 2147483647;
+            return seed / 2147483647;
+        };
+        const base = Array.from({ length: 170 }, () => ({
+            x: rnd() * 100,
+            y: rnd() * 100,
+            size: rnd() < 0.8 ? 1 : 2,
+            delay: rnd() * 6,
+            duration: 3 + rnd() * 5,
+            bright: rnd() < 0.3,
+        }));
+        // Zweiter Satz: verborgene Sterne, die nur im Licht der Cursor-Lampe erscheinen
+        const hidden = Array.from({ length: 90 }, () => ({
+            x: rnd() * 100,
+            y: rnd() * 100,
+            size: rnd() < 0.7 ? 1 : 2,
+        }));
+        return { base, hidden };
+    }, []);
+
     // --- Render Loop (Manual Calculation for Morph) ---
     const [morphValue, setMorphValue] = useState(0);
     const [rotateValue, setRotateValue] = useState(0);
@@ -328,41 +352,77 @@ export default function IntroAnimation() {
     const contentOpacity = useTransform(smoothMorph, [0.8, 1], [0, 1]);
     const contentY = useTransform(smoothMorph, [0.8, 1], [20, 0]);
 
+    // Radius des Karten-Kreises (gleiche Formel wie in der Positions-Berechnung unten)
+    const ringRadius = Math.min(
+        Math.min(containerSize.width, containerSize.height) * (containerSize.width < 768 ? 0.38 : 0.35),
+        350
+    );
+
     return (
-        <div ref={containerRef} className="relative w-full h-full bg-[#0a0a0a] overflow-hidden">
-            {/* --- Hintergrund-Ebenen (rein dekorativ) --- */}
+        <div ref={containerRef} className="relative w-full h-full bg-[#050508] overflow-hidden">
+            {/* --- Weltall-Hintergrund --- */}
             <div aria-hidden className="pointer-events-none absolute inset-0">
-                {/* Akzent-Glow: wandert beim Morph mit den Karten nach unten */}
+                {/* Nebel-Kern: wandert beim Morph mit den Karten nach unten */}
                 <div
-                    className="absolute left-1/2 top-1/2 h-[120vmin] w-[120vmin] -translate-x-1/2 -translate-y-1/2 rounded-full"
+                    className="absolute left-1/2 top-1/2 h-[130vmin] w-[130vmin] -translate-x-1/2 -translate-y-1/2 rounded-full"
                     style={{
-                        background: "radial-gradient(circle, rgba(124,92,255,0.16) 0%, rgba(124,92,255,0.05) 35%, transparent 65%)",
+                        background: "radial-gradient(circle, rgba(124,92,255,0.20) 0%, rgba(124,92,255,0.07) 35%, transparent 65%)",
                         transform: `translate(-50%, calc(-50% + ${morphValue * 22}vh)) scale(${1 + morphValue * 0.25})`,
                     }}
                 />
-                {/* Feines Punktraster, zu den Rändern ausgeblendet */}
+                {/* Rand-Nebel */}
                 <div
-                    className="absolute inset-0"
-                    style={{
-                        backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)",
-                        backgroundSize: "26px 26px",
-                        maskImage: "radial-gradient(ellipse 75% 75% at 50% 50%, black 30%, transparent 78%)",
-                        WebkitMaskImage: "radial-gradient(ellipse 75% 75% at 50% 50%, black 30%, transparent 78%)",
-                    }}
+                    className="absolute -left-1/4 -top-1/4 h-[80vmin] w-[80vmin] rounded-full"
+                    style={{ background: "radial-gradient(circle, rgba(124,92,255,0.12) 0%, transparent 65%)" }}
                 />
+                <div
+                    className="absolute -bottom-1/4 -right-1/4 h-[90vmin] w-[90vmin] rounded-full"
+                    style={{ background: "radial-gradient(circle, rgba(124,92,255,0.09) 0%, transparent 65%)" }}
+                />
+                {/* Sternenfeld */}
+                {stars.base.map((s, i) => (
+                    <span
+                        key={i}
+                        className="animate-twinkle absolute rounded-full"
+                        style={{
+                            left: `${s.x}%`,
+                            top: `${s.y}%`,
+                            width: s.size,
+                            height: s.size,
+                            backgroundColor: s.bright ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.5)",
+                            animationDelay: `${s.delay}s`,
+                            animationDuration: `${s.duration}s`,
+                        }}
+                    />
+                ))}
+                {/* Sternschnuppen */}
+                <span className="animate-shooting-star absolute left-[12%] top-[15%] h-px w-24 bg-gradient-to-r from-transparent via-white/80 to-transparent" />
+                <span className="animate-shooting-star absolute left-[55%] top-[8%] h-px w-20 bg-gradient-to-r from-transparent via-white/60 to-transparent [animation-delay:9s]" />
                 {/* Cursor-Lampe: weicher Lichtschein ... */}
                 <motion.div
                     className="absolute inset-0"
                     style={{ background: lampGlow }}
                 />
-                {/* ... und hellere Rasterpunkte im Lichtkegel */}
+                {/* ... die im Lichtkegel verborgene Sterne sichtbar macht */}
                 <motion.div
                     className="absolute inset-0"
+                    style={{ maskImage: lampMask, WebkitMaskImage: lampMask }}
+                >
+                    {stars.hidden.map((s, i) => (
+                        <span
+                            key={i}
+                            className="absolute rounded-full bg-white/80"
+                            style={{ left: `${s.x}%`, top: `${s.y}%`, width: s.size, height: s.size }}
+                        />
+                    ))}
+                </motion.div>
+                {/* Orbit-Ring: markiert die Umlaufbahn, solange die Karten im Kreis stehen */}
+                <div
+                    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/15 transition-opacity duration-500"
                     style={{
-                        backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.22) 1px, transparent 1px)",
-                        backgroundSize: "26px 26px",
-                        maskImage: lampMask,
-                        WebkitMaskImage: lampMask,
+                        width: ringRadius * 2 + 96,
+                        height: ringRadius * 2 + 96,
+                        opacity: introPhase === "circle" ? Math.max(0, 1 - morphValue * 1.6) * 0.8 : 0,
                     }}
                 />
                 {/* Filmkorn */}

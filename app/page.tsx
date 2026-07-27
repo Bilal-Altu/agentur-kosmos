@@ -1,5 +1,5 @@
 import Link from "next/link";
-import SolarHero from "@/components/ui/solar-hero";
+import IntroAnimation from "@/components/ui/scroll-morph-hero";
 import Sections from "@/components/sections";
 
 export default function Home() {
@@ -18,7 +18,9 @@ export default function Home() {
         </nav>
       </header>
 
-      <SolarHero />
+      <div className="h-svh w-full">
+        <IntroAnimation />
+      </div>
 
       <Sections />
     </main>

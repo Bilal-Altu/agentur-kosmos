@@ -25,17 +25,6 @@ body {
 }
 
 /* --- Kosmos-Animationen --- */
-@keyframes orbit {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-.animate-orbit {
-  animation: orbit linear infinite;
-}
-.animate-orbit-reverse {
-  animation: orbit linear infinite reverse;
-}
-
 @keyframes twinkle {
   0%, 100% { opacity: 0.15; }
   50% { opacity: 1; }
@@ -54,12 +43,4 @@ body {
   animation: shooting-star 11s linear infinite;
   animation-delay: 4s;
   opacity: 0;
-}
-
-@keyframes sun-pulse {
-  0%, 100% { box-shadow: 0 0 40px 10px rgba(124, 92, 255, 0.35), 0 0 90px 30px rgba(124, 92, 255, 0.15); }
-  50% { box-shadow: 0 0 55px 16px rgba(124, 92, 255, 0.5), 0 0 120px 45px rgba(124, 92, 255, 0.22); }
-}
-.animate-sun-pulse {
-  animation: sun-pulse 5s ease-in-out infinite;
 }
